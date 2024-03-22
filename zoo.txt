@@ -1,0 +1,200 @@
+class Animal
+  attr_accessor :name, :age
+
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+
+  def make_sound
+    raise NotImplementedError, "Subclasses must implement the make_sound method"
+  end
+end
+
+class Dog < Animal
+  def make_sound
+    "Woof!"
+  end
+
+  def fetch(item)
+    "Fetching #{item}..."
+  end
+end
+
+class Cat < Animal
+  def make_sound
+    "Meow!"
+  end
+
+  def scratch
+    "Scratching..."
+  end
+end
+
+def print_animal_info(animal)
+  puts "Name: #{animal.name}, Age: #{animal.age}"
+  puts "Sound: #{animal.make_sound}"
+end
+
+class Fish < Animal
+  def make_sound
+    "Blub blub!"
+  end
+
+  def swim
+    "Swimming in the aquarium."
+  end
+end
+
+def clean_aquarium(fish)
+  puts "Cleaning the aquarium for #{fish.name}."
+end
+
+def celebrate_birthday(animal)
+  animal.age += 1
+  puts "#{animal.name} is celebrating its birthday! Now #{animal.name} is #{animal.age} years old."
+end
+
+fishes = [
+  Fish.new("Goldie", 1),
+  Fish.new("Nemo", 2)
+]
+
+fishes.each do |fish|
+  print_animal_info(fish)
+  puts fish.swim
+  clean_aquarium(fish)
+  puts "-" * 30
+end
+
+def simulate_activity(animal)
+  case animal
+  when Dog
+    puts animal.fetch("ball")
+  when Cat
+    puts animal.scratch
+  else
+    puts "Unknown animal activity"
+  end
+end
+
+animals = [
+  dog1 = Dog.new("Buddy", 3),
+  cat1 = Cat.new("Whiskers", 2),
+  dog2 = Dog.new("Max", 5)
+]
+
+celebrate_birthday(animals[0])
+celebrate_birthday(fishes[1])
+
+puts "After celebrating birthdays:"
+animals.each do |animal|
+  print_animal_info(animal)
+  simulate_activity(animal)
+  puts "-" * 30
+end
+
+fishes.each do |fish|
+  print_animal_info(fish)
+  puts fish.swim
+  clean_aquarium(fish)
+  puts "-" * 30
+end
+
+class Bird < Animal
+  def make_sound
+    "Tweet tweet!"
+  end
+
+  def fly
+    "Flying high in the sky!"
+  end
+end
+
+def feed_animal(animal, food)
+  puts "#{animal.name} is enjoying some #{food}."
+end
+
+def age_animals(animals, years)
+  animals.each { |animal| animal.age += years }
+end
+
+birds = [
+  Bird.new("Sparrow", 1),
+  Bird.new("Parrot", 4)
+]
+
+birds.each do |bird|
+  print_animal_info(bird)
+  puts bird.fly
+  feed_animal(bird, "seeds")
+  puts "-" * 30
+end
+
+age_animals(animals, 2)
+
+puts "After aging animals by 2 years:"
+animals.each do |animal|
+  print_animal_info(animal)
+  simulate_activity(animal)
+  puts "-" * 30
+end
+
+class Rabbit < Animal
+  def make_sound
+    "Squeak squeak!"
+  end
+
+  def hop(distance)
+    "Hopping #{distance} meters."
+  end
+end
+
+def feed_pet(animal, food)
+  case food
+  when "carrots"
+    puts "Feeding #{animal.name} some carrots."
+  when "lettuce"
+    puts "Feeding #{animal.name} some lettuce."
+  else
+    puts "Unknown food for #{animal.name}."
+  end
+end
+
+def groom_pet(animal)
+  puts "Grooming #{animal.name}."
+end
+
+rabbits = [
+  Rabbit.new("Flopsy", 2),
+  Rabbit.new("Mopsy", 3)
+]
+
+rabbits.each do |rabbit|
+  print_animal_info(rabbit)
+  puts rabbit.hop(rand(1..3))
+  feed_pet(rabbit, ["carrots", "lettuce"].sample)
+  groom_pet(rabbit)
+  puts "-" * 30
+end
+
+animals.concat(rabbits)
+
+animals.each_with_index do |animal, index|
+  if animal.is_a?(Fish)
+    puts "#{animal.name} is a fish at index #{index} in the animals array."
+  elsif animal.is_a?(Rabbit)
+    puts "#{animal.name} is a rabbit at index #{index} in the animals array."
+  else
+    puts "#{animal.name} is another type of animal at index #{index} in the animals array."
+  end
+end
+
+total_age = animals.inject(0) { |sum, animal| sum + animal.age }
+average_age = total_age / animals.length.to_f
+
+puts "The total age of all animals is #{total_age}."
+puts "The average age of all animals is #{average_age.round(2)}."
+
+print_animal_info(dog1)
+print_animal_info(cat1)
